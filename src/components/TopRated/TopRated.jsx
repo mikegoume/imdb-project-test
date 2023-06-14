@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
-import NowPlayingMovie from "./components/NowPlayingMovie/NowPlayingMovie";
-import "./NowPlaying.css";
 import { GenreContext } from "../../App";
+import NowPlayingMovie from "../NowPlaying/components/NowPlayingMovie/NowPlayingMovie";
 
-const NowPlaying = () => {
+const TopRated = () => {
   const [moviesPage, setMoviesPage] = useState(1);
   const [moviesToRender, setMoviesToRender] = useState([]);
   const [moviesGenres, setMoviesGenres] = useState([]);
@@ -23,7 +22,7 @@ const NowPlaying = () => {
 
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/now_playing?api_key=f98b97a9b4da29e89cda43a029c156ec&page=${moviesPage}`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=f98b97a9b4da29e89cda43a029c156ec&page=${moviesPage}`
       )
       .then((res) => {
         setMoviesToRender([...moviesToRender, ...res.data.results]);
@@ -64,4 +63,4 @@ const NowPlaying = () => {
   );
 };
 
-export default NowPlaying;
+export default TopRated;

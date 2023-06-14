@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./NowPlayingMovie.css";
+import StarRating from "../../../ui-components/StarRating/StarRating";
 
 const NowPlayingMovie = (props) => {
   const {
@@ -18,13 +20,13 @@ const NowPlayingMovie = (props) => {
     onSelectMovie,
   } = props;
 
+  const cardOutterContainerClassnames = classNames({
+    "card-outter-container": true,
+    "is-Selected": isSelected,
+  });
+
   return (
-    <div
-      className={
-        isSelected ? "card-outter-selected-container" : "card-outter-container"
-      }
-      onClick={onSelectMovie}
-    >
+    <div className={cardOutterContainerClassnames} onClick={onSelectMovie}>
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt="card-poster-path"
@@ -46,10 +48,10 @@ const NowPlayingMovie = (props) => {
         <div className="card-vote-container">
           <p className="card-vote-title">{vote_average}</p>
         </div>
+        {isSelected && <StarRating rating={vote_average} />}
         <div className="card-overview-container">
           <p className="card-overview">{overview}</p>
         </div>
-        {isSelected && <p className="">I am selected</p>}
       </div>
     </div>
   );

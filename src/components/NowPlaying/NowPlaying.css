@@ -1,7 +1,10 @@
 .now-playing-outter-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.now-playing-outter-container > * {
+  flex: 1;
 }
