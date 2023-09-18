@@ -16,23 +16,21 @@ const App = () => {
 
   return (
     <GenreContext.Provider value={genreSelected}>
-      <Navbar />
-      <div
-        style={{
-          display: "flex",
-          gap: "2em",
-          width: "80%",
-          marginInline: "auto",
-          paddingTop: 40,
-        }}
-      >
-        <FilterBar setGenreFitler={(genre) => setGenreSelected(genre)} />
-        <Routes>
-          <Route path="/" element={<NowPlaying />} />
-          <Route path="/popular" element={<Popular />} />
-          <Route path="/top-rated" element={<TopRated />} />
-          <Route path="/upcoming" element={<Upcoming />} />
-        </Routes>
+      <div className="screen-layout-container">
+        <header className="navbar">
+          <Navbar />
+        </header>
+        <section className="sidebar">
+          <FilterBar setGenreFitler={(genre) => setGenreSelected(genre)} />
+        </section>
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<NowPlaying />} />
+            <Route path="/popular" element={<Popular />} />
+            <Route path="/top-rated" element={<TopRated />} />
+            <Route path="/upcoming" element={<Upcoming />} />
+          </Routes>
+        </main>
       </div>
     </GenreContext.Provider>
   );

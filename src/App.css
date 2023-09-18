@@ -12,3 +12,21 @@
   min-height: 100vh;
   background-color: #f0f0f0;
 }
+
+.screen-layout-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 60px 1fr;
+}
+
+.navbar {
+  grid-column: 1/3;
+}
+
+.sidebar {
+}
+
+.main {
+  padding: 25px;
+}
