@@ -8,7 +8,6 @@ const FilterBar = (props) => {
   const { setGenreFitler } = props;
 
   const genreSelected = useContext(GenreContext);
-  console.log("FilterBar: ", genreSelected);
 
   const [genres, setGenres] = useState(undefined);
 

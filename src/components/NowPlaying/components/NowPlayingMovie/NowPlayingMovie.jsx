@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -6,6 +6,8 @@ import "./NowPlayingMovie.css";
 import StarRating from "../../../ui-components/StarRating/StarRating";
 
 const NowPlayingMovie = (props) => {
+  console.log("movie is rendered");
+
   const {
     movie: {
       title,
@@ -64,4 +66,4 @@ NowPlayingMovie.propTypes = {
   onSelectMovie: PropTypes.func.isRequired,
 };
 
-export default NowPlayingMovie;
+export default memo(NowPlayingMovie);

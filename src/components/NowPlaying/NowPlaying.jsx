@@ -42,6 +42,10 @@ const NowPlaying = () => {
     setMoviesPage(moviesPage + 1);
   });
 
+  const handleSetSelectedMovie = useCallback((id) => {
+    setMovieSelectedIndex(id);
+  });
+
   useBottomScrollListener(handleOnDocumentBottom);
 
   return (
@@ -55,7 +59,7 @@ const NowPlaying = () => {
               movie={element}
               moviesGenres={moviesGenres}
               isSelected={index === movieSelectedIndex}
-              onSelectMovie={() => setMovieSelectedIndex(index)}
+              onSelectMovie={handleSetSelectedMovie}
             />
           )
         );
