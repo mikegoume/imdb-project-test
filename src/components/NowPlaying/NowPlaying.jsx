@@ -1,9 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import axios from "axios";
+
 import NowPlayingMovie from "./components/NowPlayingMovie/NowPlayingMovie";
-import "./NowPlaying.css";
 import { GenreContext } from "../../App";
+
+import "./NowPlaying.css";
 
 const NowPlaying = () => {
   const [moviesPage, setMoviesPage] = useState(1);
