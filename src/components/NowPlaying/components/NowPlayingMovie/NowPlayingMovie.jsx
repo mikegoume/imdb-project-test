@@ -6,8 +6,6 @@ import "./NowPlayingMovie.css";
 import StarRating from "../../../ui-components/StarRating/StarRating";
 
 const NowPlayingMovie = (props) => {
-  console.log("movie is rendered");
-
   const {
     movie: {
       title,
