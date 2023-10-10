@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
-import { GenreContext } from "../../App";
 import NowPlayingMovie from "../NowPlaying/components/NowPlayingMovie/NowPlayingMovie";
+import { useSelectedGenresContext } from "../../context/selectedGenresContext";
 
 const TopRated = () => {
   const [moviesPage, setMoviesPage] = useState(1);
@@ -10,7 +10,7 @@ const TopRated = () => {
   const [moviesGenres, setMoviesGenres] = useState([]);
   const [movieSelectedIndex, setMovieSelectedIndex] = useState(-1);
 
-  const genreSelected = useContext(GenreContext);
+  const genreSelected = useSelectedGenresContext();
 
   useEffect(() => {
     /**

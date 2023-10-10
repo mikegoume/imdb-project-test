@@ -1,13 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import "./NowPlayingMovie.css";
 import StarRating from "../../../ui-components/StarRating/StarRating";
+import { useGenresContext } from "../../../../context/movieGenresContext";
+
+import "./NowPlayingMovie.css";
 
 const NowPlayingMovie = (props) => {
-  console.log("movie is rendered");
-
   const {
     movie: {
       title,
@@ -17,10 +17,16 @@ const NowPlayingMovie = (props) => {
       genre_ids,
       poster_path,
     },
-    moviesGenres,
+    index,
     isSelected,
     onSelectMovie,
   } = props;
+
+  useEffect(() => {
+    console.log("rerendered");
+  }, [onSelectMovie]);
+
+  const moviesGenres = useGenresContext();
 
   const cardOutterContainerClassnames = classNames({
     "card-outter-container": true,
@@ -28,7 +34,10 @@ const NowPlayingMovie = (props) => {
   });
 
   return (
-    <div className={cardOutterContainerClassnames} onClick={onSelectMovie}>
+    <div
+      className={cardOutterContainerClassnames}
+      onClick={() => onSelectMovie(index)}
+    >
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt="card-poster-path"
@@ -61,7 +70,6 @@ const NowPlayingMovie = (props) => {
 
 NowPlayingMovie.propTypes = {
   movie: PropTypes.object.isRequired,
-  moviesGenres: PropTypes.array.isRequired,
   isSelected: PropTypes.bool.isRequired,
   onSelectMovie: PropTypes.func.isRequired,
 };

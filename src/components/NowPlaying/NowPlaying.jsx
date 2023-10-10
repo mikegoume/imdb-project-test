@@ -1,17 +1,18 @@
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+
 import NowPlayingMovie from "./components/NowPlayingMovie/NowPlayingMovie";
+import { useSelectedGenresContext } from "../../context/selectedGenresContext";
+
 import "./NowPlaying.css";
-import { GenreContext } from "../../App";
 
 const NowPlaying = () => {
   const [moviesPage, setMoviesPage] = useState(1);
   const [moviesToRender, setMoviesToRender] = useState([]);
-  const [moviesGenres, setMoviesGenres] = useState([]);
   const [movieSelectedIndex, setMovieSelectedIndex] = useState(-1);
 
-  const genreSelected = useContext(GenreContext);
+  const genreSelected = useSelectedGenresContext();
 
   useEffect(() => {
     /**
@@ -30,21 +31,13 @@ const NowPlaying = () => {
       });
   }, [moviesToRender.length === 0, moviesPage]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=f98b97a9b4da29e89cda43a029c156ec`
-      )
-      .then((res) => setMoviesGenres(res.data.genres));
-  }, [moviesToRender]);
-
   const handleOnDocumentBottom = useCallback(() => {
     setMoviesPage(moviesPage + 1);
   });
 
   const handleSetSelectedMovie = useCallback((id) => {
     setMovieSelectedIndex(id);
-  });
+  }, []);
 
   useBottomScrollListener(handleOnDocumentBottom);
 
@@ -56,8 +49,8 @@ const NowPlaying = () => {
             element.genre_ids.indexOf(genreSelected.id) !== -1) && (
             <NowPlayingMovie
               key={index}
+              index={index}
               movie={element}
-              moviesGenres={moviesGenres}
               isSelected={index === movieSelectedIndex}
               onSelectMovie={handleSetSelectedMovie}
             />

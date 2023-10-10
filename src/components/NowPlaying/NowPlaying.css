@@ -1,5 +1,7 @@
 .now-playing-outter-container {
   display: grid;
+  grid-auto-flow: row dense;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  transition: 0.5s;
 }

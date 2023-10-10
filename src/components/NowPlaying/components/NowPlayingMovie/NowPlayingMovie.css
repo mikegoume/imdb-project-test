@@ -7,6 +7,7 @@
   cursor: pointer;
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 10, 0.2);
+  transition: 0.5s;
 }
 
 .card-outter-container:hover {
@@ -18,6 +19,7 @@
   grid-column: auto / span 2;
   display: flex;
   flex-direction: row;
+  transition: 0.5s;
 
   .card-poster-path-image {
     width: 30%;

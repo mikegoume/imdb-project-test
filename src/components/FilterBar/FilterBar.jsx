@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useSelectedGenresContext } from "../../context/selectedGenresContext";
+import { useGenresContext } from "../../context/movieGenresContext";
 import "./FilterBar.scss";
-import { useContext } from "react";
-import { GenreContext } from "../../App";
 
 const FilterBar = (props) => {
   const { setGenreFitler } = props;
 
-  const genreSelected = useContext(GenreContext);
-
-  const [genres, setGenres] = useState(undefined);
-
-  useEffect(() => {
-    if (!genres) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/genre/movie/list?api_key=f98b97a9b4da29e89cda43a029c156ec`
-        )
-        .then((res) => {
-          setGenres(res.data.genres);
-        });
-    }
-  }, []);
+  const movieGenres = useGenresContext();
+  const genreSelected = useSelectedGenresContext();
 
   return (
     <div className="filterbar-outter-container h-min">
-      {genres && (
+      {movieGenres && (
         <div className="filterbar-inner-container">
           <span className="filterbar-section-title">Genres</span>
-          {genres.map((genre) => (
+          {movieGenres.map((genre) => (
             <label className="checkbox" key={genre.id}>
               <input
                 className="checkbox__input"

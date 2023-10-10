@@ -10,6 +10,7 @@ const StarRating = (props) => {
       {[...Array(5)].map((star, index) => {
         return (
           <span
+            key={index}
             className="star"
             style={{
               color: index < actual_rating ? "orange" : "#ccc",
