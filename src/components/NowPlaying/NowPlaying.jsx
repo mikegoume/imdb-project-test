@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useCallback } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import axios from "axios";
 
 import NowPlayingMovie from "./components/NowPlayingMovie/NowPlayingMovie";
 import { useSelectedGenresContext } from "../../context/selectedGenresContext";

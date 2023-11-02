@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import FilterBar from "./components/FilterBar/FilterBar";
@@ -8,13 +8,15 @@ import NowPlaying from "./components/NowPlaying";
 import Popular from "./components/Popular/Popular";
 import TopRated from "./components/TopRated/TopRated";
 import Upcoming from "./components/Upcoming/Upcoming";
-import { GenresListContext } from "./context/movieGenresContext";
-import { SelectedGenreContext } from "./context/selectedGenresContext";
+import LoginPage from "./screens/auth/loginPage";
 import "./App.css";
-import LoginForm from "./pages/auth/loginForm";
+
+export const GenreContext = createContext(null);
+export const UserContext = createContext(null);
 
 const App = () => {
   const [movieGenres, setMoviesGenres] = useState([]);
+  const [userLoggedIn, setUserLoggedIn] = useState(null);
   const [genreSelected, setGenreSelected] = useState(null);
   const [user, setUser] = useState(undefined);
 
@@ -26,15 +28,35 @@ const App = () => {
       .then((res) => setMoviesGenres(res.data.genres));
   }, []);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userLoggedIn"));
+
+    if (user) {
+      setUserLoggedIn(user);
+    }
+  }, []);
+
+  const handleUserLogin = (data) => {
+    localStorage.setItem("userLoggedIn", JSON.stringify(data));
+
+    setUserLoggedIn(data);
+  };
+
+  const handleUserLogout = () => {
+    localStorage.removeItem("userLoggedIn");
+
+    setUserLoggedIn(null);
+  };
+
   return (
-    <GenresListContext.Provider value={movieGenres}>
-      <SelectedGenreContext.Provider value={genreSelected}>
-        {user ? (
-          <LoginForm />
-        ) : (
+    <UserContext.Provider value={userLoggedIn}>
+      {!userLoggedIn ? (
+        <LoginPage onFormSubmit={handleUserLogin} />
+      ) : (
+        <GenreContext.Provider value={genreSelected}>
           <div className="screen-layout-container">
             <header className="navbar">
-              <Navbar />
+              <Navbar onLogout={handleUserLogout} />
             </header>
             <section className="sidebar">
               <FilterBar setGenreFitler={(genre) => setGenreSelected(genre)} />
@@ -48,9 +70,9 @@ const App = () => {
               </Routes>
             </main>
           </div>
-        )}
-      </SelectedGenreContext.Provider>
-    </GenresListContext.Provider>
+        </GenreContext.Provider>
+      )}
+    </UserContext.Provider>
   );
 };
 

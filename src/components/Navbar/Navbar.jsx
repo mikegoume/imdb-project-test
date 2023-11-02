@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const { onLogout } = props;
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="w-4/5 flex flex-wrap items-center justify-between mx-auto pt-4 pb-4">
@@ -66,6 +68,7 @@ const Navbar = () => {
                 Upcoming
               </Link>
             </li>
+            <button onClick={() => onLogout()}>Logout</button>
           </ul>
         </div>
       </div>
