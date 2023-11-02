@@ -1,20 +1,3 @@
-.filterbar-outter-container {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgb(0 0 10 / 0.2);
-}
-
-.filterbar-inner-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.filterbar-section-title {
-  font-size: 18px;
-  font-weight: 500;
-}
-
 .checkbox {
   $block: &;
 

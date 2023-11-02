@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect } from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -22,10 +22,6 @@ const NowPlayingMovie = (props) => {
     onSelectMovie,
   } = props;
 
-  useEffect(() => {
-    console.log("rerendered");
-  }, [onSelectMovie]);
-
   const moviesGenres = useGenresContext();
 
   const cardOutterContainerClassnames = classNames({
@@ -47,7 +43,7 @@ const NowPlayingMovie = (props) => {
         <p className="card-title">{title}</p>
         <p className="card-release-date">{release_date}</p>
         <div className="card-genre-outter-container">
-          {moviesGenres.map(
+          {moviesGenres?.map(
             (movieGenre, index) =>
               genre_ids.indexOf(movieGenre.id) !== -1 && (
                 <p key={index} className="card-genre-title">

@@ -11,13 +11,14 @@ import Upcoming from "./components/Upcoming/Upcoming";
 import LoginPage from "./screens/auth/loginPage";
 import "./App.css";
 
-export const GenreContext = createContext(null);
 export const UserContext = createContext(null);
+export const GenresContext = createContext(null);
+export const SelectedGenres = createContext([]);
 
 const App = () => {
   const [movieGenres, setMoviesGenres] = useState([]);
   const [userLoggedIn, setUserLoggedIn] = useState(null);
-  const [genreSelected, setGenreSelected] = useState(null);
+  const [genresSelected, setGenresSelected] = useState([]);
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
@@ -48,29 +49,46 @@ const App = () => {
     setUserLoggedIn(null);
   };
 
+  const handleFilterSelect = (filter) => {
+    const newGenresSelected = genresSelected;
+    console.log(filter, newGenresSelected.indexOf(filter));
+    if (newGenresSelected.indexOf(String(filter)) != -1) {
+      const selectedGenreIndex = newGenresSelected.indexOf(filter);
+
+      newGenresSelected.splice(selectedGenreIndex, 1);
+      setGenresSelected(newGenresSelected);
+    } else {
+      setGenresSelected([...newGenresSelected, String(filter)]);
+    }
+  };
+
   return (
     <UserContext.Provider value={userLoggedIn}>
       {!userLoggedIn ? (
         <LoginPage onFormSubmit={handleUserLogin} />
       ) : (
-        <GenreContext.Provider value={genreSelected}>
-          <div className="screen-layout-container">
-            <header className="navbar">
-              <Navbar onLogout={handleUserLogout} />
-            </header>
-            <section className="sidebar">
-              <FilterBar setGenreFitler={(genre) => setGenreSelected(genre)} />
-            </section>
-            <main className="main">
-              <Routes>
-                <Route path="/" element={<NowPlaying />} />
-                <Route path="/popular" element={<Popular />} />
-                <Route path="/top-rated" element={<TopRated />} />
-                <Route path="/upcoming" element={<Upcoming />} />
-              </Routes>
-            </main>
-          </div>
-        </GenreContext.Provider>
+        <GenresContext.Provider value={movieGenres}>
+          <SelectedGenres.Provider value={genresSelected}>
+            <div className="screen-layout-container">
+              <header className="navbar">
+                <Navbar onLogout={handleUserLogout} />
+              </header>
+              <section className="sidebar">
+                <FilterBar
+                  setGenreFitler={(genre) => handleFilterSelect(genre)}
+                />
+              </section>
+              <main className="main">
+                <Routes>
+                  <Route path="/" element={<NowPlaying />} />
+                  <Route path="/popular" element={<Popular />} />
+                  <Route path="/top-rated" element={<TopRated />} />
+                  <Route path="/upcoming" element={<Upcoming />} />
+                </Routes>
+              </main>
+            </div>
+          </SelectedGenres.Provider>
+        </GenresContext.Provider>
       )}
     </UserContext.Provider>
   );

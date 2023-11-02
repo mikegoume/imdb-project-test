@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import axios from "axios";
 
 import NowPlayingMovie from "./components/NowPlayingMovie/NowPlayingMovie";
-import { useSelectedGenresContext } from "../../context/selectedGenresContext";
+import { SelectedGenres } from "../../App";
 
 import "./NowPlaying.css";
 
@@ -12,7 +12,7 @@ const NowPlaying = () => {
   const [moviesToRender, setMoviesToRender] = useState([]);
   const [movieSelectedIndex, setMovieSelectedIndex] = useState(-1);
 
-  const genreSelected = useSelectedGenresContext();
+  const genresSelected = useContext(SelectedGenres);
 
   useEffect(() => {
     /**
@@ -45,8 +45,8 @@ const NowPlaying = () => {
     <div className="now-playing-outter-container">
       {moviesToRender.map((element, index) => {
         return (
-          (!genreSelected ||
-            element.genre_ids.indexOf(genreSelected.id) !== -1) && (
+          (genresSelected.length === 0 ||
+            element.genre_ids.indexOf(genresSelected.id) !== -1) && (
             <NowPlayingMovie
               key={index}
               index={index}

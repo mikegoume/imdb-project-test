@@ -1,25 +1,33 @@
-import { useSelectedGenresContext } from "../../context/selectedGenresContext";
-import { useGenresContext } from "../../context/movieGenresContext";
+import { useContext } from "react";
+
+import { GenresContext, SelectedGenres } from "../../App";
+
 import "./FilterBar.scss";
 
 const FilterBar = (props) => {
   const { setGenreFitler } = props;
 
-  const movieGenres = useGenresContext();
-  const genreSelected = useSelectedGenresContext();
+  const movieGenres = useContext(GenresContext);
+  const genreSelected = useContext(SelectedGenres);
+
+  const checkIfGenreIsSelected = (id) => {
+    return genreSelected.indexOf(id) != -1;
+  };
+
+  console.log(genreSelected);
 
   return (
-    <div className="filterbar-outter-container h-min">
+    <div className="bg-darknavy p-6 rounded-lg shadow-xl">
       {movieGenres && (
-        <div className="filterbar-inner-container">
-          <span className="filterbar-section-title">Genres</span>
+        <div className="flex flex-col">
+          <span className="font-sans text-xl text-white mb-2">Genres</span>
           {movieGenres.map((genre) => (
             <label className="checkbox" key={genre.id}>
               <input
                 className="checkbox__input"
                 type="checkbox"
-                onChange={() => setGenreFitler(genre)}
-                checked={genreSelected?.id === genre.id}
+                onChange={() => setGenreFitler(genre.id)}
+                checked={checkIfGenreIsSelected(genre.id)}
               />
               <svg
                 className="checkbox__icon"
@@ -44,7 +52,9 @@ const FilterBar = (props) => {
                   d="M4 10l5 5 9-9"
                 />
               </svg>
-              <span className="checkbox__label"> {genre.name}</span>
+              <span className="font-sans text-lg text-white px-4">
+                {genre.name}
+              </span>
             </label>
           ))}
         </div>
