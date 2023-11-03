@@ -14,8 +14,6 @@ const FilterBar = (props) => {
     return genreSelected.indexOf(id) != -1;
   };
 
-  console.log(genreSelected);
-
   return (
     <div className="bg-darknavy p-6 rounded-lg shadow-xl">
       {movieGenres && (

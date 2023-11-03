@@ -39,6 +39,18 @@ const NowPlaying = () => {
     setMovieSelectedIndex(id);
   }, []);
 
+  const checkIfMovieIsInFilters = (movieFilters) => {
+    let isInFilters = false;
+
+    movieFilters.forEach((filter) => {
+      if (genresSelected.indexOf(filter) !== -1) {
+        isInFilters = true;
+      }
+    });
+
+    return isInFilters;
+  };
+
   useBottomScrollListener(handleOnDocumentBottom);
 
   return (
@@ -46,7 +58,7 @@ const NowPlaying = () => {
       {moviesToRender.map((element, index) => {
         return (
           (genresSelected.length === 0 ||
-            element.genre_ids.indexOf(genresSelected.id) !== -1) && (
+            checkIfMovieIsInFilters(element.genre_ids)) && (
             <NowPlayingMovie
               key={index}
               index={index}

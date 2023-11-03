@@ -50,16 +50,17 @@ const App = () => {
   };
 
   const handleFilterSelect = (filter) => {
-    const newGenresSelected = genresSelected;
-    console.log(filter, newGenresSelected.indexOf(filter));
-    if (newGenresSelected.indexOf(String(filter)) != -1) {
-      const selectedGenreIndex = newGenresSelected.indexOf(filter);
+    let newGenresSelected = [];
 
-      newGenresSelected.splice(selectedGenreIndex, 1);
-      setGenresSelected(newGenresSelected);
+    if (genresSelected.indexOf(filter) != -1) {
+      genresSelected.forEach(
+        (genre) => genre !== filter && newGenresSelected.push(genre)
+      );
     } else {
-      setGenresSelected([...newGenresSelected, String(filter)]);
+      newGenresSelected = [...genresSelected, filter];
     }
+
+    setGenresSelected(newGenresSelected);
   };
 
   return (
