@@ -70,7 +70,7 @@ const App = () => {
       ) : (
         <GenresContext.Provider value={movieGenres}>
           <SelectedGenres.Provider value={genresSelected}>
-            <div className="screen-layout-container">
+            <div className="screen-layout-container bg-black">
               <header className="navbar">
                 <Navbar onLogout={handleUserLogout} />
               </header>
