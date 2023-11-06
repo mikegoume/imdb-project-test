@@ -20,7 +20,7 @@
   }
 
   .card-overview-container {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .card-info-container {
@@ -31,6 +31,11 @@
 
   .card-vote-container {
     display: none;
+  }
+
+  .card-title {
+    font-size: 24px;
+    margin-bottom: 5px;
   }
 }
 
@@ -84,6 +89,7 @@
   font-size: 12px;
   color: white;
   margin: 4px 4px 4px 0px;
+  font-size: 14px;
 }
 
 .card-vote-container {

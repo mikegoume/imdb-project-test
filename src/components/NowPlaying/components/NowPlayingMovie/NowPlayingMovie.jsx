@@ -1,10 +1,11 @@
 import React, { memo, useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { AiOutlineUnorderedList, AiFillHeart } from "react-icons/ai";
+import { Tooltip } from "react-tooltip";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { Tooltip } from "react-tooltip";
+import { AiOutlineUnorderedList, AiFillHeart } from "react-icons/ai";
+import "react-circular-progressbar/dist/styles.css";
 
 import StarRating from "../../../ui-components/StarRating/StarRating";
 import { GenresContext } from "../../../../App";
@@ -77,6 +78,7 @@ const NowPlayingMovie = (props) => {
                 // Text size
                 fontSize: 28,
                 fontWeight: 800,
+                textAlign: "center",
               },
               // Customize background - only used when the `background` prop is true
               background: {
@@ -87,13 +89,19 @@ const NowPlayingMovie = (props) => {
         </div>
         {isSelected && <StarRating rating={vote_average} />}
         <div className="card-overview-container">
-          <p className="card-overview">{overview}</p>
+          {isSelected && (
+            <p className="font-sans text-lg text-white font-semibold mb-1">
+              Overview
+            </p>
+          )}
+          <p className="font-sans text-base mb-10 text-white">{overview}</p>
         </div>
         {isSelected && (
           <div className="flex flex-row gap-5">
             <button
               data-tooltip-id="create-custom-list-tooltip"
               data-tooltip-content="Add to list"
+              data-tooltip-place="bottom"
               className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
             >
               <AiOutlineUnorderedList size={20} color="white" />
@@ -101,6 +109,7 @@ const NowPlayingMovie = (props) => {
             <button
               data-tooltip-id="add-to-favourite-tooltip"
               data-tooltip-content="Add to favourite"
+              data-tooltip-place="bottom"
               className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
             >
               <AiFillHeart size={20} color="white" />
@@ -108,13 +117,23 @@ const NowPlayingMovie = (props) => {
             <button
               data-tooltip-id="add-to-your-watchlist-tooltip"
               data-tooltip-content="Add to your watchlist"
+              data-tooltip-place="bottom"
               className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
             >
               <BsFillBookmarkFill color="white" />
             </button>
-            <Tooltip id="create-custom-list-tooltip" />
-            <Tooltip id="add-to-favourite-tooltip" />
-            <Tooltip id="add-to-your-watchlist-tooltip" />
+            <Tooltip
+              id="create-custom-list-tooltip"
+              style={{ backgroundColor: "#008170" }}
+            />
+            <Tooltip
+              id="add-to-favourite-tooltip"
+              style={{ backgroundColor: "#008170" }}
+            />
+            <Tooltip
+              id="add-to-your-watchlist-tooltip"
+              style={{ backgroundColor: "#008170" }}
+            />
           </div>
         )}
       </div>
