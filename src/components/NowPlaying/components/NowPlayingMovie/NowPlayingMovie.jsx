@@ -1,14 +1,15 @@
 import React, { memo, useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import { AiOutlineUnorderedList, AiFillHeart } from "react-icons/ai";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { CircularProgressbar } from "react-circular-progressbar";
+import { Tooltip } from "react-tooltip";
 
 import StarRating from "../../../ui-components/StarRating/StarRating";
-import { useGenresContext } from "../../../../context/movieGenresContext";
+import { GenresContext } from "../../../../App";
 
 import "./NowPlayingMovie.css";
-import { GenresContext } from "../../../../App";
 
 const NowPlayingMovie = (props) => {
   const {
@@ -88,6 +89,34 @@ const NowPlayingMovie = (props) => {
         <div className="card-overview-container">
           <p className="card-overview">{overview}</p>
         </div>
+        {isSelected && (
+          <div className="flex flex-row gap-5">
+            <button
+              data-tooltip-id="create-custom-list-tooltip"
+              data-tooltip-content="Add to list"
+              className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
+            >
+              <AiOutlineUnorderedList size={20} color="white" />
+            </button>
+            <button
+              data-tooltip-id="add-to-favourite-tooltip"
+              data-tooltip-content="Add to favourite"
+              className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
+            >
+              <AiFillHeart size={20} color="white" />
+            </button>
+            <button
+              data-tooltip-id="add-to-your-watchlist-tooltip"
+              data-tooltip-content="Add to your watchlist"
+              className="w-10 h-10 flex items-center justify-center bg-teal rounded-full"
+            >
+              <BsFillBookmarkFill color="white" />
+            </button>
+            <Tooltip id="create-custom-list-tooltip" />
+            <Tooltip id="add-to-favourite-tooltip" />
+            <Tooltip id="add-to-your-watchlist-tooltip" />
+          </div>
+        )}
       </div>
     </div>
   );

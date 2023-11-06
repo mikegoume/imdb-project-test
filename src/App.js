@@ -19,7 +19,6 @@ const App = () => {
   const [movieGenres, setMoviesGenres] = useState([]);
   const [userLoggedIn, setUserLoggedIn] = useState(null);
   const [genresSelected, setGenresSelected] = useState([]);
-  const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     axios
@@ -38,6 +37,15 @@ const App = () => {
   }, []);
 
   const handleUserLogin = (data) => {
+    data = {
+      ...data,
+      favoriteList: [],
+      watchLaterList: [],
+      customList: [],
+    };
+
+    console.log(data);
+
     localStorage.setItem("userLoggedIn", JSON.stringify(data));
 
     setUserLoggedIn(data);

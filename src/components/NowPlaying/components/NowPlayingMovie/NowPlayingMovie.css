@@ -20,12 +20,13 @@
   }
 
   .card-overview-container {
-    height: 100%;
+    margin-bottom: 10px;
   }
 
   .card-info-container {
     position: relative;
     height: 100%;
+    cursor: default;
   }
 
   .card-vote-container {
